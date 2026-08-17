@@ -3,6 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NNZ38KNV');
+  </script>
+  <!-- End Google Tag Manager -->
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DYT8QX8DQZ"></script>
   <script>
@@ -123,8 +132,9 @@
     }
 
     .brand-logo {
-      width: clamp(168px, 15vw, 226px);
-      height: 108px;
+      width: clamp(132px, 11vw, 176px);
+      height: auto;
+      max-height: 74px;
       object-fit: contain;
     }
 
@@ -996,6 +1006,104 @@
       text-transform: uppercase;
     }
 
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .blog-card {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      overflow: hidden;
+      color: var(--text);
+      border: 1px solid rgba(22, 20, 18, 0.14);
+      background: #ffffff;
+      box-shadow: 0 18px 48px rgba(45, 36, 24, 0.08);
+      transition: transform 320ms ease, border-color 320ms ease, box-shadow 320ms ease;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(212, 175, 55, 0.46);
+      box-shadow: 0 24px 64px rgba(45, 36, 24, 0.16);
+    }
+
+    .blog-media {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(120px, 0.8fr);
+      gap: 8px;
+      height: clamp(250px, 27vw, 390px);
+      padding: 8px;
+      background: var(--surface-3);
+    }
+
+    .blog-media img {
+      min-width: 0;
+      border: 1px solid rgba(22, 20, 18, 0.1);
+    }
+
+    .blog-content {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      padding: clamp(22px, 3vw, 34px);
+    }
+
+    .blog-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      color: var(--bronze);
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .blog-card h3 {
+      margin: 0;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(1.55rem, 2.4vw, 2.25rem);
+      line-height: 1.05;
+      text-transform: uppercase;
+    }
+
+    .blog-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.72;
+    }
+
+    .blog-points {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .blog-points li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .blog-points i,
+    .blog-points svg {
+      flex: 0 0 auto;
+      margin-top: 2px;
+      color: var(--bronze);
+      stroke: var(--bronze);
+    }
+
+    .blog-card .button {
+      width: fit-content;
+      margin-top: auto;
+    }
+
     .booking {
       display: grid;
       grid-template-columns: minmax(280px, 0.8fr) minmax(0, 1fr);
@@ -1165,7 +1273,7 @@
 
     .footer .brand-logo {
       width: clamp(210px, 20vw, 286px);
-      height: 178px;
+      height: auto;
     }
 
     .quote-modal {
@@ -1262,7 +1370,8 @@
       }
 
       .service-grid,
-      .offering-grid {
+      .offering-grid,
+      .blog-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
@@ -1286,8 +1395,9 @@
       }
 
       .brand-logo {
-        width: 152px;
-        height: 86px;
+        width: 132px;
+        height: auto;
+        max-height: 64px;
       }
 
       .nav-actions .button {
@@ -1326,6 +1436,15 @@
       .section-head {
         gap: 18px;
         margin-bottom: 34px;
+      }
+
+      .blog-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .blog-media {
+        grid-template-columns: 1fr 1fr;
+        height: 280px;
       }
 
       .hero-actions .button,
@@ -1421,18 +1540,23 @@
   </style>
 </head>
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NNZ38KNV"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
   <noscript><img height="1" width="1" style="display:none"
   src="https://www.facebook.com/tr?id=4311235432474902&ev=PageView&noscript=1"
   /></noscript>
   <header class="site-header">
     <nav class="nav" aria-label="Primary navigation">
       <a class="brand" href="#home" aria-label="Cars911 home">
-        <img class="brand-logo" src="assets/cars911_velocity_logo_transparent.png?v=gold-logo" alt="Cars911">
+        <img class="brand-logo" src="assets/cars911_velocity_logo_transparent.png?v=gold-logo-20260817" alt="Cars911">
       </a>
       <div class="nav-links">
         <a href="#services">Services</a>
         <a href="#protocol">Protocol</a>
         <a href="#technology">Technology</a>
+        <a href="#blog">Blog</a>
         <a href="#contact">Contact</a>
       </div>
       <div class="nav-actions">
@@ -1736,6 +1860,53 @@
       </div>
     </section>
 
+    <section class="section dark" id="blog">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow"><i data-lucide="newspaper"></i> Blog</span>
+            <h2 class="section-title">Car care guides for Dubai roads.</h2>
+          </div>
+          <p>Practical reads for heat, traffic, warning signs, and service decisions before a small issue becomes a workshop emergency.</p>
+        </div>
+        <div class="blog-grid">
+          <article class="blog-card reveal">
+            <div class="blog-media">
+              <img class="primary" src="assets/blog/car-ac-heat-dashboard.webp" alt="Driver feeling heat from a car AC vent">
+              <img src="assets/blog/car-ac-not-cooling-driver.jpg" alt="Driver wiping sweat inside a hot car">
+            </div>
+            <div class="blog-content">
+              <div class="blog-meta"><span>AC repair</span><span>Dubai heat</span></div>
+              <h3>Why is my car AC not cooling in Dubai?</h3>
+              <p>Dubai heat puts extra load on every AC system. This guide helps drivers spot common causes like weak cooling, low refrigerant, blocked airflow, compressor trouble, and cabin filter issues.</p>
+              <ul class="blog-points">
+                <li><i data-lucide="check"></i> Know when weak cooling needs a pressure and leak inspection.</li>
+                <li><i data-lucide="check"></i> Understand how filters, fans, and refrigerant affect cabin comfort.</li>
+              </ul>
+              <a class="button" href="assets/blog/why-is-my-car-ac-not-cooling-in-dubai.pdf" target="_blank" rel="noopener">Read blog <i data-lucide="arrow-up-right"></i></a>
+            </div>
+          </article>
+
+          <article class="blog-card reveal">
+            <div class="blog-media">
+              <img class="primary" src="assets/blog/engine-overheating.webp" alt="Steam coming from an overheating car engine">
+              <img src="assets/blog/car-overheating-faq.png" alt="Driver checking a smoking car engine">
+            </div>
+            <div class="blog-content">
+              <div class="blog-meta"><span>Engine care</span><span>Overheating</span></div>
+              <h3>What to do when your car is overheating.</h3>
+              <p>Overheating can damage an engine quickly. This blog explains the warning signs, safe first steps, and why coolant leaks, radiator problems, thermostat faults, or fan failure need fast attention.</p>
+              <ul class="blog-points">
+                <li><i data-lucide="check"></i> Learn the signs that mean you should stop driving immediately.</li>
+                <li><i data-lucide="check"></i> See which cooling system checks help prevent repeat breakdowns.</li>
+              </ul>
+              <a class="button" href="assets/blog/car-overheating-blog.pdf" target="_blank" rel="noopener">Read blog <i data-lucide="arrow-up-right"></i></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section class="section alt" id="contact">
       <div class="container booking">
         <div class="reveal">
@@ -1749,7 +1920,7 @@
           </div>
         </div>
 
-        <form class="booking-panel reveal" action="mailto:Vansh@cars911.co" method="post" enctype="text/plain">
+        <form class="booking-panel reveal" action="mailto:Skygarage26@gmail.com" method="post" enctype="text/plain">
           <div class="form-grid">
             <div class="field">
               <label for="name">Name</label>
@@ -1832,7 +2003,7 @@
     <div class="container footer-inner">
       <div class="footer-brand">
         <a class="brand" href="#home">
-          <img class="brand-logo" src="assets/cars911_velocity_logo_transparent.png?v=gold-logo" alt="Cars911">
+          <img class="brand-logo" src="assets/cars911_velocity_logo_transparent.png?v=gold-logo-20260817" alt="Cars911">
         </a>
         <span class="footer-powered">Powered by Skygarage information technology - FZCO.</span>
       </div>
@@ -1852,7 +2023,7 @@
         </div>
         <button class="quote-close" type="button" aria-label="Close quote form" data-close-quote><i data-lucide="x"></i></button>
       </div>
-      <form action="mailto:Vansh@cars911.co" method="post" enctype="text/plain">
+      <form action="mailto:Skygarage26@gmail.com" method="post" enctype="text/plain">
         <div class="form-grid">
           <div class="field">
             <label for="modalName">Name</label>
