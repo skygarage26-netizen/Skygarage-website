@@ -3,7 +3,7 @@ const SHEET_NAME = "Leads";
 
 function doPost(e) {
   const sheet = getLeadsSheet_();
-  const payload = JSON.parse(e.postData.contents || "{}");
+  const payload = getPayload_(e);
 
   sheet.appendRow([
     new Date(),
@@ -22,6 +22,20 @@ function doPost(e) {
   return ContentService
     .createTextOutput(JSON.stringify({ ok: true }))
     .setMimeType(ContentService.MimeType.JSON);
+}
+
+function getPayload_(e) {
+  const rawBody = e.postData && e.postData.contents;
+
+  if (rawBody) {
+    try {
+      return JSON.parse(rawBody);
+    } catch (error) {
+      return e.parameter || {};
+    }
+  }
+
+  return e.parameter || {};
 }
 
 function getLeadsSheet_() {
