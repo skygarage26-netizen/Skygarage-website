@@ -1220,6 +1220,20 @@
       background-position: 0 0;
     }
 
+    .form-grid .button:disabled {
+      cursor: wait;
+      opacity: 0.72;
+      transform: none;
+    }
+
+    .form-status {
+      min-height: 1.4em;
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.5;
+    }
+
     .faq {
       display: grid;
       gap: 12px;
@@ -1929,7 +1943,7 @@
           </div>
         </div>
 
-        <form class="booking-panel reveal" action="mailto:Skygarage26@gmail.com" method="post" enctype="text/plain">
+        <form class="booking-panel reveal" action="mailto:Skygarage26@gmail.com" method="post" enctype="text/plain" data-lead-form="Booking">
           <div class="form-grid">
             <div class="field">
               <label for="name">Name</label>
@@ -1975,6 +1989,7 @@
             </div>
             <div class="field full">
               <button class="button" type="submit">Request booking <i data-lucide="send"></i></button>
+              <p class="form-status" aria-live="polite"></p>
             </div>
           </div>
         </form>
@@ -2032,7 +2047,7 @@
         </div>
         <button class="quote-close" type="button" aria-label="Close quote form" data-close-quote><i data-lucide="x"></i></button>
       </div>
-      <form action="mailto:Skygarage26@gmail.com" method="post" enctype="text/plain">
+      <form action="mailto:Skygarage26@gmail.com" method="post" enctype="text/plain" data-lead-form="Quote">
         <div class="form-grid">
           <div class="field">
             <label for="modalName">Name</label>
@@ -2074,6 +2089,7 @@
           </div>
           <div class="field full">
             <button class="button" type="submit">Send request <i data-lucide="send"></i></button>
+            <p class="form-status" aria-live="polite"></p>
           </div>
         </div>
       </form>
@@ -2090,6 +2106,8 @@
     const serviceTitle = document.getElementById("serviceTitle");
     const serviceCopy = document.getElementById("serviceCopy");
     const serviceChecks = document.getElementById("serviceChecks");
+    const leadForms = document.querySelectorAll("[data-lead-form]");
+    const leadSheetEndpoint = "https://script.google.com/macros/s/AKfycbxvW9zwO2iGne0HqIcPvQ-pgtPAPjt6VWKXwP2Y5mk9KYiCcEKr6o2QC2PEx0zBu3QZCA/exec";
 
     const serviceData = {
       maintenance: {
@@ -2163,6 +2181,53 @@
       if (event.key === "Escape" && quoteModal.classList.contains("open")) {
         closeQuote();
       }
+    });
+
+    leadForms.forEach((form) => {
+      form.addEventListener("submit", async (event) => {
+        if (!leadSheetEndpoint) {
+          return;
+        }
+
+        event.preventDefault();
+
+        const button = form.querySelector("button[type='submit']");
+        const status = form.querySelector(".form-status");
+        const formData = new FormData(form);
+        const payload = {
+          formType: form.dataset.leadForm,
+          submittedAt: new Date().toISOString(),
+          pageUrl: window.location.href,
+        };
+
+        formData.forEach((value, key) => {
+          payload[key] = value;
+        });
+
+        button.disabled = true;
+        status.textContent = "Sending...";
+
+        try {
+          await fetch(leadSheetEndpoint, {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+              "Content-Type": "text/plain;charset=utf-8",
+            },
+            body: JSON.stringify(payload),
+          });
+
+          form.reset();
+          status.textContent = "Request sent. The Cars911 team will contact you shortly.";
+          if (form.dataset.leadForm === "Quote") {
+            setTimeout(closeQuote, 900);
+          }
+        } catch (error) {
+          status.textContent = "Unable to send right now. Please call or email the Cars911 team.";
+        } finally {
+          button.disabled = false;
+        }
+      });
     });
 
     document.querySelectorAll(".tab-button").forEach((button) => {
